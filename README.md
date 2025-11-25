@@ -13,7 +13,7 @@ Sistema de monitorización de ruido y captura de imagen mediante cámara Tapo C2
 ## Estructura del proyecto
 
 ```
-/
+tapo/
  ├── tapo.py
  ├── requirements.txt
  ├── README.md
