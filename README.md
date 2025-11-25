@@ -60,6 +60,21 @@ python tapo.py
 
 ---
 
+# Docker Ready
+
+Este proyecto tiene una imagen oficial publicada en Docker Hub:
+
+🔗 **https://hub.docker.com/repository/docker/joboufra/tapo-monitor**
+
+Puedes ejecutarla así:
+
+```bash
+docker run --rm   -e RTSP_VIDEO=rtsp://...   -e RTSP_AUDIO=rtsp://...   -e NTFY_URL=https://...   -e NTFY_USER=...   -e NTFY_PASSWORD=...   -e SOUND_THRESHOLD=-25   -e COOLDOWN=5   -e AUDIO_CHUNK_SECONDS=0.1   -e DEBUG_AUDIO=false   joboufra/tapo-monitor:latest
+```
+
+O realizar las adaptaciones que consideres para llevar el proyecto a Kubernetes, por ejemplo.
+
+---
 # Notas importantes
 
 - NTFY debe estar disponible.
