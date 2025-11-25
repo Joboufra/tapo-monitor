@@ -1,3 +1,2 @@
 .env
-/k8s/*.yml
-/k8s/Makefile
+/k8s/*
