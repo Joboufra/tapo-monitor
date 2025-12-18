@@ -1,2 +1,2 @@
 .env
-/k8s/*
+k8s/Makefile

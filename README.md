@@ -17,7 +17,8 @@ tapo/
  ├── tapo.py
  ├── requirements.txt
  ├── README.md
- └── .env        (debes crearlo tú)
+ ├── .env        (debes crearlo tú)
+ └── k8s/        (manifiestos y Dockerfile para Kubernetes)
 ```
 
 ---
@@ -45,6 +46,11 @@ DEBUG_AUDIO=false                    # Modo debug del audio
 ---
 
 # Ejecución local
+
+Requisitos del sistema:
+
+- FFmpeg instalado y disponible en el PATH (Windows, Linux o macOS).
+- Dependencias Python del proyecto.
 
 Instalar dependencias:
 
@@ -75,7 +81,22 @@ docker run --rm   -e RTSP_VIDEO=rtsp://...   -e RTSP_AUDIO=rtsp://...   -e NTFY_
 O realizar las adaptaciones que consideres para llevar el proyecto a Kubernetes, por ejemplo.
 
 ---
-# Notas importantes
+# Kubernetes (carpeta `k8s/`)
 
+La carpeta `k8s/` incluye una versión del proyecto preparada para Kubernetes:
+
+- `k8s/Dockerfile` y `k8s/requirements.txt` para construir la imagen.
+- `k8s/deployment.yml` con `Deployment`, `ConfigMap` y `Secret`.
+
+Para que funcione en tu clúster necesitas:
+
+- Crear el `Secret` con credenciales reales (RTSP y contraseña NTFY).
+- Ajustar el `ConfigMap` con tu URL/usuario de NTFY y parámetros de audio.
+- Definir el namespace correcto y la imagen publicada en tu registry.
+
+Nota: no subas credenciales ni endpoints privados al repositorio; usa placeholders o archivos fuera de Git para tus secretos.
+
+---
+# Notas importantes
 - NTFY debe estar disponible.
 - Debes indicar que los RTSP son funcionales.

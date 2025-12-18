@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tapo-monitor
+  namespace: joboufra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tapo-monitor
+  template:
+    metadata:
+      labels:
+        app: tapo-monitor
+    spec:
+      containers:
+        - name: tapo-monitor
+          image: joboufra/tapo-monitor:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: tapo-monitor-config
+            - secretRef:
+                name: tapo-monitor-secret
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tapo-monitor-config
+  namespace: joboufra
+data:
+  NTFY_URL: "https://ntfy.tu-servidor.com/tapo_notifications"
+  NTFY_USER: "tu_usuario"
+  SOUND_THRESHOLD: "-25"
+  COOLDOWN: "5"
+  AUDIO_CHUNK_SECONDS: "0.1"
+  DEBUG_AUDIO: "false"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tapo-monitor-secret
+  namespace: joboufra
+type: Opaque
+data:
+  RTSP_VIDEO: "BASE64_RTSP_VIDEO"
+  RTSP_AUDIO: "BASE64_RTSP_AUDIO"
+  NTFY_PASSWORD: "BASE64_NTFY_PASSWORD"
